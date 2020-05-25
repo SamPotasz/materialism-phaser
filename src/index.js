@@ -2,13 +2,16 @@ import Phaser from "phaser";
 import PreloaderScene from './scenes/PreloaderScene';
 import GameScene from './scenes/GameScene';
 
-const config = {
+export const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
   width: 800,
   height: 600,
   dom: {
     createContainer: true
+  },
+  scale: {
+    mode: Phaser.Scale.NONE,
   },
   scene: [
     PreloaderScene,

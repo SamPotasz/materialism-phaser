@@ -1,6 +1,5 @@
 import 'phaser';
-import logoImg from "../assets/logo.png";
-
+import CONFIG from '../gameConfig';
 
 export default class PreloaderScene extends Phaser.Scene 
 {
@@ -11,9 +10,6 @@ export default class PreloaderScene extends Phaser.Scene
 	
 	preload () 
 	{
-		// this.add.image(400, 200, 'logo')
-		
-		
 		// display progress bar
 		var progressBar = this.add.graphics();
 		var progressBox = this.add.graphics();
@@ -81,11 +77,11 @@ export default class PreloaderScene extends Phaser.Scene
 		this.timedEvent = this.time.delayedCall(1000, this.ready, [], this);
 		
 		//load atlases
-		// this.load.atlas('spriteAtlas', 'assets/atlases/EggHuntAtlas.png', 'assets/atlases/EggHuntAtlas.json')
-		this.load.multiatlas('spriteAtlas', 'assets/atlases/EggHuntAtlas.json', 'assets/atlases');
+		this.load.atlas(CONFIG.ATLAS_NAME, 'assets/TextureAtlas.png', 'assets/TextureAtlas.json')
+		// this.load.multiatlas('spriteAtlas', 'assets/atlases/EggHuntAtlas.json', 'assets/atlases');
 		
 		// this.load.image('livingroom_base', 'assets/pngs/livingroom_base.png');
-		this.load.image("logo", logoImg);
+		// this.load.image("logo", logoImg);
 		
 		// this.load.bitmapFont('comicSans', 'assets/fonts/comic_sans_ms_regular_8.PNG', 'assets/fonts/comic_sans_ms_regular_8.xml');
 		
