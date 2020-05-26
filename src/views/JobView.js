@@ -1,26 +1,34 @@
-import 'phaser';
-import CONFIG from '../gameConfig';
+import {Events} from 'phaser';
+import CONFIG from '../constants';
 
-import StartButtonView from './StartButtonView';
+import LockedJobView from './LockedJobView';
+import UnlockedJobView from './UnlockedJobView';
 
 /**
  * The class which actually displays the things to start!
  */
 export default class JobView {
   constructor({ scene, x, y, model }) {
-    const { jobData: {title} } = model;
     
-    // console.log({jobData})
-    // console.log({data});
-    // console.log(`adding ${title} @ ${x}, ${y}`);
-    
-    this.titleText = scene.add.text(x, y, title);
-    
-    this.startButton = new StartButtonView({ 
-      scene, x, y});
-    // this.startButton.enable();
-    if(Math.random() > 0.5) { this.startButton.enable() } else { this.startButton.disable() }
+    this.startClicked = new Events.EventEmitter();
+    this.unlockClicked = new Events.EventEmitter();
+    this.unlockClicked.on('', () => console.log('clicked'));
+
+    this.lockedView = new LockedJobView({
+      scene, x, y, model, 
+      dispatch: this.unlockClicked,
+    });
+
+    this.unlockedView = new UnlockedJobView({
+      scene, x, y, model,
+      dispatch: this.startClicked
+    });
+
+    this.displayIsUnlocked( model.jobData.isUnlocked );
   }
 
-  // create
+  displayIsUnlocked( isUnlocked ) {
+    this.unlockedView.setVisible( isUnlocked );
+    this.lockedView.setVisible( !isUnlocked );
+  }
 }

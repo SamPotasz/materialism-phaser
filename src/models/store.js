@@ -14,13 +14,29 @@ const INITIAL_STATE = {
   jobs: JOBS_DATA,
 }
 
-export const loadStore = () => {
-  console.log('loading store');
-return({
-  score: parseInt(localStorage.getItem('score')) || INITIAL_STATE.score,
-  jobs: initializeJobs(JOBS_DATA),
-})
+export default class GameState {
+  constructor() {
+    this.loadStore();
+  }
+
+  loadStore() {
+    console.log('loading store');
+  
+    this.score = parseInt(localStorage.getItem('score')) || INITIAL_STATE.score;
+    this.jobs = initializeJobs(JOBS_DATA);
+    this.lastUpdate = Date.now();
+  }
+
+  onTimePassed() {
+    // const now = Date.now();
+    // const diff = now - this.lastUpdate;
+    // console.log(`time since update: ${diff}`)
+    this.lastUpdate = Date.now();
+    // this.jobs.map( jobModel => jobModel.onTimePassed(this.lastUpdate) )
+  }
 }
+
+
 
 /**
  * takes in array of job data, 

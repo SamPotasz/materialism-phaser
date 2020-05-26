@@ -1,5 +1,5 @@
 import 'phaser';
-import CONFIG from '../gameConfig';
+import CONFIG from '../constants';
 
 export default class PreloaderScene extends Phaser.Scene 
 {

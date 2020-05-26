@@ -1,14 +1,19 @@
 import 'phaser';
-import CONFIG from '../gameConfig';
+import CONFIG from '../constants';
 
 const ON_NAME = 'green_button11';
 const OFF_NAME = 'grey_button11';
 
 class StartButtonView {
-  constructor({scene, x, y}) {
+  constructor({scene, x, y, dispatch}) {
     this.sprite = scene.add.sprite(x, y, 
       CONFIG.ATLAS_NAME, ON_NAME);
+
+    this.dispatch = dispatch;
   }
+
+  get width() { return this.sprite.width }
+  get height() { return this.sprite.height }
 
   enable() {
     this.sprite.setFrame(ON_NAME)
@@ -23,7 +28,11 @@ class StartButtonView {
   }
 
   onStartClick() {
-    console.log("start clicked!");
+    this.dispatch.emit('');
+  }
+
+  setVisible( value ) {
+    this.sprite.setVisible( value );
   }
 }
 

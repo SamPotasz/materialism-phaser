@@ -8,7 +8,7 @@ export const JOBS_DATA = {
     numUpgrades: 0,
     benefit: 1,
     benefitMultiplier: 1,
-    ticksLeft: 500,
+    duration: 1000,
     ticksMultiplier: 1,
     student: {
       name: 'first student',
@@ -38,6 +38,7 @@ export const JOBS_DATA = {
     unlockCost: 720,
     upgradeCost: 820.8,
     benefit: 540,
+    duration: 6000,
     student: {
       name: 'second student',
       decription: 'Can totally pass you notes afterwards.',
@@ -51,6 +52,7 @@ export const JOBS_DATA = {
     unlockCost: 8640,
     upgradeCost: 9763.2,
     benefit: 4200,
+    duration: 12000,
     student: {
       name: 'fourth student',
       decription: 'Listens on 2.5x - so hardcore.',
@@ -64,6 +66,7 @@ export const JOBS_DATA = {
     unlockCost: 103680,
     upgradeCost: 116121.6,
     benefit: 5200,
+    duration: 24000,
     student: {
       name: 'fifth student student',
       decription: 'Will hit themselves with a stick.',

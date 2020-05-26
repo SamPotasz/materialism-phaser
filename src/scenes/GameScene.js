@@ -1,8 +1,8 @@
 import 'phaser';
-import { loadStore } from '../models/store.js';
+import GameState from '../models/store.js';
 
 import ScoreView from '../views/ScoreView';
-import AllJobsView from '../views/AllJobsView.js';
+import AllJobsController from '../controllers/AllJobsController.js';
 
 export default class GameScene extends Phaser.Scene 
 {
@@ -13,7 +13,7 @@ export default class GameScene extends Phaser.Scene
 
 	init()
 	{
-    this.gameState = loadStore();
+    this.gameState = new GameState();
     console.log("JOBS:");
     console.log(this.gameState.jobs);
 	}
@@ -21,17 +21,26 @@ export default class GameScene extends Phaser.Scene
 	create() 
 	{
     console.log("create game")
+
+    //don't need a controller really. this scene acts as the controller
     this.scoreDisplay = new ScoreView({
       scene: this,
-      x: 35, y: 15,
+      x: 65, y: 15,
       score: this.gameState.score,
     })
 
-    this.jobsDisplay = new AllJobsView({
+    this.jobsController = new AllJobsController({
       scene: this,
       x: 50, y: 100,
       data: this.gameState.jobs
     })
+
+    //add timer
+    // this.time.addEvent({
+    //   delay: 1000,
+    //   loop: true,
+    //   callback: () => { this.gameState.onTimePassed() }
+    // })
 
     window.addEventListener('resize', () => this.resize() );
     this.resize();
@@ -39,23 +48,6 @@ export default class GameScene extends Phaser.Scene
   
   resize() {
     console.log("Resizing app in " + this.key)
-
-    // const dpr = window.devicePixelRatio;
-    // const widthDPR = Math.round(window.innerWidth * dpr);
-    // const heightDPR = Math.round(window.innerHeight * dpr);
-
-    // this.scale.parent.width = Math.round(window.innerWidth);
-    // this.scale.parent.height = Math.round(window.innerHeight);
-
-    // this.scale.canvas.width = widthDPR;
-    // this.scale.canvas.height = heightDPR;
-
-    // this.scale.canvas.style.width = Math.round(window.innerWidth) + 'px';
-    // this.scale.canvas.style.height = Math.round(window.innerHeight) + 'px';
-
-    // this.scale.setGameSize(widthDPR, heightDPR);
-    // this.scale.setParentSize(window.innerWidth, window.innerHeight);
-
     
     // Width-height-ratio of game resolution
     // Replace 360 with your game width, and replace 640 with your game height
