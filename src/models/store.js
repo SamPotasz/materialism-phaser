@@ -10,7 +10,7 @@ import {JOBS_DATA} from './jobs.data';
  */
 
 const INITIAL_STATE = {
-  score: 0,
+  score: 100,
   jobs: JOBS_DATA,
 }
 
@@ -34,9 +34,15 @@ export default class GameState {
     this.lastUpdate = Date.now();
     // this.jobs.map( jobModel => jobModel.onTimePassed(this.lastUpdate) )
   }
+
+  /**
+   * gets job model with given ID
+   * @param {jobId} id 
+   */
+  getJobById( id ) {
+    return this.jobs.find( job => job.id === id );
+  }
 }
-
-
 
 /**
  * takes in array of job data, 

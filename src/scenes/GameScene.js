@@ -32,7 +32,7 @@ export default class GameScene extends Phaser.Scene
     this.jobsController = new AllJobsController({
       scene: this,
       x: 50, y: 100,
-      data: this.gameState.jobs
+      model: this.gameState
     })
 
     //add timer

@@ -1,26 +1,47 @@
-import {Events} from 'phaser';
-import CONFIG from '../constants';
+import {CONFIG, EVENT_TYPES} from '../constants';
+
+const ENABLED_FRAME = 'red_button01';
+const DISABLED_FRAME = 'grey_button01';
 
 export default class LockedJobView {
   constructor({ scene, x, y, 
-    model: {jobData: {title, unlockCost} },
+    model: {title, unlockCost},
     dispatch}) {
 
-    // this.clicked = new Events.EventEmitter();
-    // this.group = scene.add.group();
-
+    this.emitter = dispatch;
+    this.unlockCost = unlockCost;
+    
     this.button = scene.add.image( x, y, 
       CONFIG.ATLAS_NAME, 'red_button01');
-    this.button.setInteractive({useHandCursor: true});
-    this.button.on('pointerdown', () => {
-      dispatch.emit('');
-    })
-
+    
     this.label = scene.add.text( x, y,
       `Unlock ${title}: ${unlockCost}`)
 
-    // this.group.add(this.button);
-    // this.group.add(this.label);
+    this.setEnabled( true );
+  }
+
+  setEnabled( value ) {
+    const frame = value ? ENABLED_FRAME : DISABLED_FRAME;
+    this.button.setFrame( frame );
+
+    if( value ) {
+      this.button.setInteractive({useHandCursor: true});
+      this.button.on('pointerdown', () => {
+        console.log('emitting')
+        this.emitter.emit(EVENT_TYPES.UNLOCK_CLICK);
+      })
+    }
+    else {
+      this.button.disableInteractive();
+    }
+  }
+
+  /**
+   * When the model's score value changes.
+   * @param score 
+   */
+  onScoreUpdate( score ) {
+    this.setEnabled( score >= this.unlockCost );
   }
 
   setVisible( value ) {

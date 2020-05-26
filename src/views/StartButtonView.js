@@ -1,5 +1,5 @@
 import 'phaser';
-import CONFIG from '../constants';
+import {CONFIG, EVENT_TYPES} from '../constants';
 
 const ON_NAME = 'green_button11';
 const OFF_NAME = 'grey_button11';
@@ -28,7 +28,8 @@ class StartButtonView {
   }
 
   onStartClick() {
-    this.dispatch.emit('');
+    console.log('start clicked')
+    this.dispatch.emit(EVENT_TYPES.JOB_START);
   }
 
   setVisible( value ) {

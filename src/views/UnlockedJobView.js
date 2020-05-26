@@ -5,7 +5,7 @@ import TimeLeftView from './TimeLeftView';
 export default class UnlockedJobView  {
   constructor({ scene, x, y, model, dispatch }) {
 
-    const { jobData: {title, duration} } = model;
+    const { title, duration} = model;
 
     this.startButton = new StartButtonView({ 
       scene, x, y, dispatch});
@@ -19,6 +19,10 @@ export default class UnlockedJobView  {
     this.timeDisplay = new TimeLeftView({
       scene, x: titleX + this.titleText.width + 5, y, duration 
     });
+  }
+
+  onScoreUpdate( score ) {
+    
   }
 
   setVisible( value ) {
