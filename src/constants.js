@@ -1,5 +1,7 @@
 export const CONFIG = {
   ATLAS_NAME: 'spriteAtlas',
+  SCORE_KEY: 'local store score key',
+  JOBS_KEY: 'localStorage jobs',
 }
 
 export const EVENT_TYPES = {

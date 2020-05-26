@@ -53,13 +53,15 @@ export default class AllJobsController {
     const jobModel = this.model.getJobById(modelId);
     if( jobModel ) {
       jobModel.unlock( this.model.score );
-      this.model.score -= jobModel.unlockCost;
+      this.model.setScore( this.model.score - jobModel.unlockCost )
+      // this.model.score -= jobModel.unlockCost;
     }
   }
 
   onJobFinished( jobModel, timesFinished ) {
     console.log( `${jobModel.title} finished ${timesFinished} times`)
     const points = jobModel.benefit * timesFinished;
-    this.model.score += points;
+    // this.model.score += points;
+    this.model.setScore( this.model.score + points );
   }
 }

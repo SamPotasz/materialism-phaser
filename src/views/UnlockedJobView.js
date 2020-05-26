@@ -16,6 +16,9 @@ export default class UnlockedJobView  {
     this.titleText = scene.add.text( 
       titleX, y - 10, title);
 
+    this.pointsText = scene.add.text(
+      titleX, y + 15, this.pointsString )
+
     this.timeDisplay = new TimeLeftView({
       scene, x: titleX + this.titleText.width + 5, y, model 
     });
@@ -29,6 +32,11 @@ export default class UnlockedJobView  {
   setVisible( value ) {
     this.startButton.setVisible( value );
     this.titleText.setVisible( value );
+    this.pointsText.setVisible( value );
     this.timeDisplay.setVisible( value );
+  }
+
+  get pointsString() {
+    return "Earns " + this.model.benefit;
   }
 }

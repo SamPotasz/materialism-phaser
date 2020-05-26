@@ -1,5 +1,5 @@
 import { Events } from 'phaser';
-import {EVENT_TYPES} from '../constants';
+import {CONFIG, EVENT_TYPES} from '../constants';
 
 import StudentModel from './StudentModel';
 
@@ -20,6 +20,7 @@ export default class JobModel {
 
       if( newTime >= this.finishesAt ) {
         this.isActive = false;
+        this.saveToStorage();
         this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, 1 );
       }
       this.emitter.emit( EVENT_TYPES.TIME_PASSED, this );
@@ -35,11 +36,19 @@ export default class JobModel {
       this.isActive = true;
       this.lastUpdate = Date.now();
       this.startedAt = this.lastUpdate;
+
+      this.saveToStorage();
+
       return true;
     }
     else {
       return false;
     }
+  }
+
+  saveToStorage() {
+    localStorage.setItem(CONFIG.JOBS_KEY + this.id, 
+      JSON.stringify(this.saveData));
   }
 
   /**
@@ -49,6 +58,7 @@ export default class JobModel {
   unlock( currPoints ) {
     if( currPoints >= this.unlockCost ){
       this.isUnlocked = true;
+      this.saveToStorage();
     }
   }
 
@@ -61,5 +71,13 @@ export default class JobModel {
    */
   get finishesAt() {
     return this.startedAt + this.duration;
+  }
+
+  get saveData() {
+    return {
+      isActive: this.isActive,
+      startedAt: this.startedAt,
+      isUnlocked: this.isUnlocked,
+    }
   }
 }
