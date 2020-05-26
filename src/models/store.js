@@ -32,7 +32,7 @@ export default class GameState {
     // const diff = now - this.lastUpdate;
     // console.log(`time since update: ${diff}`)
     this.lastUpdate = Date.now();
-    // this.jobs.map( jobModel => jobModel.onTimePassed(this.lastUpdate) )
+    this.jobs.map( jobModel => jobModel.onTimePassed(this.lastUpdate) )
   }
 
   /**

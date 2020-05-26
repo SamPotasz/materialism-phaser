@@ -9,26 +9,31 @@ class StartButtonView {
     this.sprite = scene.add.sprite(x, y, 
       CONFIG.ATLAS_NAME, ON_NAME);
 
+    this.sprite.setInteractive({useHandCursor: true});
+    this.sprite.on('pointerdown', this.onStartClick, this);
+
     this.dispatch = dispatch;
   }
 
   get width() { return this.sprite.width }
   get height() { return this.sprite.height }
 
-  enable() {
-    this.sprite.setFrame(ON_NAME)
-    this.sprite.setInteractive({useHandCursor: true});
-    this.sprite.on('pointerdown', this.onStartClick, this)
-  }
+  setEnabled( value ) {
 
-  disable() {
-    this.sprite.setFrame(OFF_NAME);
-    this.sprite.disableInteractive();
-    // this.sprite
+    if( value ) {
+      this.sprite.setFrame(ON_NAME)
+      this.sprite.setInteractive({useHandCursor: true});
+
+    }
+    else {
+      this.sprite.setFrame(OFF_NAME);
+      this.sprite.disableInteractive();
+    }
   }
 
   onStartClick() {
-    console.log('start clicked')
+    // console.log('start clicked')
+    // console.log(this.dispatch);
     this.dispatch.emit(EVENT_TYPES.JOB_START);
   }
 

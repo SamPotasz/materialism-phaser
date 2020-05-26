@@ -45,6 +45,12 @@ export default class GameScene extends Phaser.Scene
     window.addEventListener('resize', () => this.resize() );
     this.resize();
   }
+
+  update() {
+    this.gameState.onTimePassed();
+    this.jobsController.update();
+    this.scoreDisplay.update( this.gameState.score )
+  }
   
   resize() {
     console.log("Resizing app in " + this.key)

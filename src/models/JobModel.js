@@ -19,9 +19,10 @@ export default class JobModel {
       this.lastUpdate = newTime;
 
       if( newTime >= this.finishesAt ) {
-        this.emitter.emit( EVENT_TYPES.JOB_COMPLETE, 1 );
+        this.isActive = false;
+        this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, 1 );
       }
-      this.emitter.emit( EVENT_TYPES.TIME_PASSED );
+      this.emitter.emit( EVENT_TYPES.TIME_PASSED, this );
     }
   }
 
@@ -38,6 +39,16 @@ export default class JobModel {
     }
     else {
       return false;
+    }
+  }
+
+  /**
+   * Try to unlock this job
+   * @param {points in the game} currPoints 
+   */
+  unlock( currPoints ) {
+    if( currPoints >= this.unlockCost ){
+      this.isUnlocked = true;
     }
   }
 

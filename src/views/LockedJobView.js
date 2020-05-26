@@ -13,11 +13,15 @@ export default class LockedJobView {
     
     this.button = scene.add.image( x, y, 
       CONFIG.ATLAS_NAME, 'red_button01');
-    
+    this.button.on('pointerdown', () => {
+        console.log('emitting')
+        this.emitter.emit(EVENT_TYPES.UNLOCK_CLICK);
+      })
+
     this.label = scene.add.text( x, y,
       `Unlock ${title}: ${unlockCost}`)
-
-    this.setEnabled( true );
+      
+    // this.setEnabled( true );
   }
 
   setEnabled( value ) {
@@ -26,10 +30,6 @@ export default class LockedJobView {
 
     if( value ) {
       this.button.setInteractive({useHandCursor: true});
-      this.button.on('pointerdown', () => {
-        console.log('emitting')
-        this.emitter.emit(EVENT_TYPES.UNLOCK_CLICK);
-      })
     }
     else {
       this.button.disableInteractive();
@@ -40,7 +40,7 @@ export default class LockedJobView {
    * When the model's score value changes.
    * @param score 
    */
-  onScoreUpdate( score ) {
+  update( score ) {
     this.setEnabled( score >= this.unlockCost );
   }
 

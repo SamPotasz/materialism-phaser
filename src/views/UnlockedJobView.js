@@ -6,10 +6,10 @@ export default class UnlockedJobView  {
   constructor({ scene, x, y, model, dispatch }) {
 
     const { title, duration} = model;
+    this.model = model;
 
     this.startButton = new StartButtonView({ 
       scene, x, y, dispatch});
-    this.startButton.enable();
     // if(Math.random() > 0.5) { this.startButton.enable() } else { this.startButton.disable() }
 
     const titleX = x + ( this.startButton.width / 2 ) + 5;
@@ -17,12 +17,13 @@ export default class UnlockedJobView  {
       titleX, y - 10, title);
 
     this.timeDisplay = new TimeLeftView({
-      scene, x: titleX + this.titleText.width + 5, y, duration 
+      scene, x: titleX + this.titleText.width + 5, y, model 
     });
   }
 
-  onScoreUpdate( score ) {
-    
+  update( score ) {
+    this.startButton.setEnabled( !this.model.isActive );
+    this.timeDisplay.update();
   }
 
   setVisible( value ) {

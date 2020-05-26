@@ -25,12 +25,20 @@ export default class AllJobsController {
       view.emitter.on(EVENT_TYPES.JOB_START, () => { this.onStartClicked(model.id) })
       view.emitter.on(EVENT_TYPES.UNLOCK_CLICK, () => { this.onUnlockClicked(model.id) })
 
-      view.onScoreUpdate( this.model.score );
+      model.emitter.on(EVENT_TYPES.JOB_FINISHED, this.onJobFinished, this);
+      // model.emitter.on(EVENT_TYPES.TIME_PASSED, this.onJobTimePassed, this);
+
+      view.update( this.model.score );
       this.jobViews.push( view )
     });
   }
 
+  update() {
+    this.jobViews.forEach( view => view.update(this.model.score) )
+  }
+
   onStartClicked( modelId ) {
+    console.log('start clicked in AJC')
     const jobModel = this.model.getJobById(modelId);
     if( jobModel ){
       jobModel.tryToStart();
@@ -42,10 +50,16 @@ export default class AllJobsController {
 
   onUnlockClicked( modelId ) {
     console.log( 'unlock detected in model ' + modelId )
+    const jobModel = this.model.getJobById(modelId);
+    if( jobModel ) {
+      jobModel.unlock( this.model.score );
+      this.model.score -= jobModel.unlockCost;
+    }
   }
 
-  //the model's points have changed. let all the views know about it
-  onScoreUpdate( newPoints ) {
-    this.jobViews.forEach( jobView => jobView.onScoreUpdate( newPoints ));
+  onJobFinished( jobModel, timesFinished ) {
+    console.log( `${jobModel.title} finished ${timesFinished} times`)
+    const points = jobModel.benefit * timesFinished;
+    this.model.score += points;
   }
 }

@@ -11,6 +11,7 @@ export default class JobView {
   constructor({ scene, x, y, model }) {
     
     this.emitter = new Events.EventEmitter();
+    this.model = model;
     // this.unlockClicked = new Events.EventEmitter();
     // this.unlockClicked.on('', () => console.log('clicked'));
 
@@ -23,17 +24,16 @@ export default class JobView {
       scene, x, y, model,
       dispatch: this.emitter
     });
+  }
 
-    this.displayIsUnlocked( model.isUnlocked );
+  update( score ) {
+    this.displayIsUnlocked( this.model.isUnlocked )
+    this.unlockedView.update( score );
+    this.lockedView.update( score );
   }
 
   displayIsUnlocked( isUnlocked ) {
     this.unlockedView.setVisible( isUnlocked );
     this.lockedView.setVisible( !isUnlocked );
-  }
-
-  onScoreUpdate( score ) {
-    // this.unlockedView.onScoreUpdate( score );
-    this.lockedView.onScoreUpdate( score );
   }
 }
