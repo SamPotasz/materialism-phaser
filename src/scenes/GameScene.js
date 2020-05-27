@@ -40,13 +40,11 @@ export default class GameScene extends Phaser.Scene
       scene: this,
       model: this.gameState,
     })
+    
+    console.log(Phaser.Events.BLUR);
 
-    //add timer
-    // this.time.addEvent({
-    //   delay: 1000,
-    //   loop: true,
-    //   callback: () => { this.gameState.onTimePassed() }
-    // })
+    this.game.events.on('focus', this.onFocus, this);
+    this.game.events.on('blur', this.onBlur, this);
 
     window.addEventListener('resize', () => this.resize() );
     this.resize();
@@ -57,6 +55,15 @@ export default class GameScene extends Phaser.Scene
     this.jobsController.update();
     this.apps.update();
     this.scoreDisplay.update( this.gameState.score )
+  }
+
+  onBlur() {
+    console.log('BLUR EVENT!');
+    this.gameState.saveState();
+  }
+
+  onFocus() {
+    console.log('FOCUS EVENT!');
   }
   
   resize() {

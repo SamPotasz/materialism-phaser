@@ -1,9 +1,9 @@
 import 'phaser';
 import {CONFIG, EVENT_TYPES, START_BUTTON_STATES} from '../constants';
 
-const ON_NAME = 'green_button11';
-const OFF_NAME = 'grey_button11';
-const COMPLETE_SPRITE = 'green_boxCheckmark'
+const ON_NAME = 'play_button1';
+const OFF_NAME = 'play_button2';
+const COMPLETE_SPRITE = 'play_button3'
 
 class StartButtonView {
   constructor({scene, x, y, dispatch}) {
@@ -27,11 +27,11 @@ class StartButtonView {
     if( value !== this.currState )
     {
       switch( value ){
-        case START_BUTTON_STATES.ACTIVE:
+        case START_BUTTON_STATES.INACTIVE:
           this.sprite.setFrame(ON_NAME)
           this.sprite.setInteractive({useHandCursor: true});
           break;
-        case START_BUTTON_STATES.INACTIVE:
+        case START_BUTTON_STATES.ACTIVE:
           this.sprite.setFrame(OFF_NAME);
           this.sprite.disableInteractive();
           break;

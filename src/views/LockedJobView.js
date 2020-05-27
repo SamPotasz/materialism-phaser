@@ -1,3 +1,4 @@
+import {Display} from 'phaser';
 import {CONFIG, EVENT_TYPES} from '../constants';
 
 const ENABLED_FRAME = 'red_button01';
@@ -17,11 +18,16 @@ export default class LockedJobView {
         console.log('emitting')
         this.emitter.emit(EVENT_TYPES.UNLOCK_CLICK);
       })
+    this.button.setScale(1.3, 1.0);
+    this.button.setOrigin(0, 0);
 
     this.label = scene.add.text( x, y,
-      `Unlock ${title}: ${unlockCost}`)
-      
-    // this.setEnabled( true );
+      `Unlock "${title}"\n${unlockCost}`, 
+      {fontFamily: 'Muli', color:'0xffffff'})
+
+    Display.Align.In.TopLeft(this.label, this.button);
+    this.label.x += 5;
+    this.label.y += 5;
   }
 
   setEnabled( value ) {

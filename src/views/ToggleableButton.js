@@ -30,6 +30,7 @@ class ToggleableButton extends GameObjects.Image {
       this.setFrame(this.offFrame);
       this.disableInteractive();
     }
+    this.isActive = value;
   }
 }
 

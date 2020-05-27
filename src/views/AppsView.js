@@ -1,9 +1,8 @@
 import { Events, Display } from 'phaser';
-import AppButton from './AppButton';
+import AppsMenu from './AppsMenu';
 
 // const ON_NAME = 'green_panel';
 const OFF_NAME = 'green_button13';
-const MENU_BG = 'grey_panel';
 const LABEL_TEXT = "BUY AN APP";
 const NOTIF_ICON = 'red_tick';
 
@@ -29,35 +28,12 @@ export default class AppsView {
     this.alert = scene.add.image(0, 0, atlas, NOTIF_ICON);
     Display.Align.In.TopRight( this.alert, this.button );
 
-    this.menu = scene.add.container(
+    this.menu = new AppsMenu( scene,
       scene.cameras.main.width / 2,
-      scene.cameras.main.height / 2);
+      scene.cameras.main.height / 2,
+      this.model,
+      this.emitter);
     
-    const menuBG = scene.add.image(0, 0, atlas, MENU_BG).setScale(4.0, 3.0);
-    const closeButton = 
-      scene.add.image(menuBG.displayWidth / 2, -menuBG.displayHeight / 2,
-        atlas, "red_boxCross");
-    closeButton.setInteractive({useHandCursor: true});
-    closeButton.on('pointerdown', () => { this.menu.setVisible(false); })
-
-    this.menu.add(menuBG);
-    //create a bunch of buttons!
-    this.buttons = [];
-    this.model.jobs.forEach((model, i) => {
-      const appButton = new AppButton({ 
-        scene, 
-        x: 0, 
-        y: i * 30 - (menuBG.displayHeight / 4),
-        atlas,
-        model,
-        emitter: this.emitter
-       })
-       this.menu.add( appButton );
-       this.buttons.push(appButton);
-    });
-
-    this.menu.add(closeButton);
-
     this.menu.setVisible(false);
   }
 
@@ -68,7 +44,7 @@ export default class AppsView {
 
   update() { 
     this.alert.setVisible( this.model.areAnyAppsAvailable() );
-    
-    this.buttons.forEach( button => button.update( this.model.score ));
+    this.menu.update();
+        
   }
 }

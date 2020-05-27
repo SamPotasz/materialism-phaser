@@ -5,6 +5,7 @@ import StudentModel from './StudentModel';
 
 export default class JobModel {
   constructor(jobData) {
+    this.numUpgrades = 0;
     Object.assign( this, jobData );
     this.lastUpdate = Date.now();
     
@@ -21,7 +22,7 @@ export default class JobModel {
       if( newTime >= this.finishesAt ) {
         if(!this.hasApp) {
           this.isActive = false;
-          this.saveToStorage();
+          // this.saveToStorage();
 
           this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, 1 );
         }
@@ -31,7 +32,7 @@ export default class JobModel {
           const numTimesFinished = Math.floor( timePassed / this.duration );
           
           this.startedAt = this.startedAt + numTimesFinished * this.duration;
-          this.saveToStorage();
+          // this.saveToStorage();
 
           this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, numTimesFinished );
         }
@@ -51,7 +52,7 @@ export default class JobModel {
       this.lastUpdate = Date.now();
       this.startedAt = this.lastUpdate;
 
-      this.saveToStorage();
+      // this.saveToStorage();
 
       return true;
     }
@@ -68,21 +69,22 @@ export default class JobModel {
     if( currPoints >= this.unlockCost ){
       this.isUnlocked = true;
 
-      this.saveToStorage();
+      // this.saveToStorage();
     }
   }
 
   upgrade() {
+    this.numUpgrades++;
     this.upgradeCost *= 1.1;
     this.benefit *= 1.1;
-    this.saveToStorage();
+    // this.saveToStorage();
   }
 
   activateApp() {
     this.hasApp = true;
     this.student.activate();
     this.tryToStart();
-    this.saveToStorage();
+    // this.saveToStorage();
   }
 
   saveToStorage() {
@@ -131,6 +133,7 @@ export default class JobModel {
       startedAt: this.startedAt,
       isUnlocked: this.isUnlocked,
       upgradeCost: this.upgradeCost,
+      numUpgrades: this.numUpgrades,
       benefit: this.benefit,
       hasApp: this.hasApp,
     }

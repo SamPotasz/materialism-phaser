@@ -3,14 +3,15 @@ import StartButtonView from './StartButtonView';
 import TimeLeftView from './TimeLeftView';
 import UpgradeButton from './UprgradeButton';
 
-export default class UnlockedJobView  {
+export default class UnlockedJobView {
   constructor({ scene, x, y, model, dispatch }) {
 
     const { title } = model;
     this.model = model;
 
     this.titleText = scene.add.text( 
-      x, y, title, {fontFamily: 'Muli'});
+      x, y, title, 
+      {fontFamily: 'Muli', fontSize: '18px', color: '0xffffff'});
 
     this.startButton = new StartButtonView({ 
       scene, 
@@ -18,7 +19,8 @@ export default class UnlockedJobView  {
       y: y + 36, dispatch});
     
     this.pointsText = scene.add.text(
-      x + 30, y + 22, this.pointsString, {fontFamily: 'Muli'} );
+      x + 30, y + 22, this.pointsString, 
+      {fontFamily: 'Muli', fontSize: 12} );
 
     this.upgradeButton = new UpgradeButton({
       scene, 
@@ -49,9 +51,11 @@ export default class UnlockedJobView  {
     this.titleText.setVisible( value );
     this.pointsText.setVisible( value );
     this.timeDisplay.setVisible( value );
+    this.upgradeButton.setVisible( value );
   }
 
   get pointsString() {
-    return "Earns " + this.model.benefit.toFixed(2);
+    return "Level: " + (this.model.numUpgrades + 1) +
+      "\nEarns " + this.model.benefit.toFixed(2);
   }
 }

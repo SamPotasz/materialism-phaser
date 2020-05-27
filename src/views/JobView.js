@@ -16,7 +16,9 @@ export default class JobView {
     // this.unlockClicked.on('', () => console.log('clicked'));
 
     this.lockedView = new LockedJobView({
-      scene, x, y, model, 
+      scene, 
+      x, 
+      y: y + 20, model, 
       dispatch: this.emitter,
     });
 

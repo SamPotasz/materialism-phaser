@@ -68,6 +68,14 @@ export default class GameState {
 
   setScore( value ) {
     this.score = value;
+  }
+
+  saveState() {
+    this.saveScore();
+    this.jobs.map( jobs => jobs.saveToStorage());
+  }
+
+  saveScore() {
     localStorage.setItem(CONFIG.SCORE_KEY, this.score);
   }
 
