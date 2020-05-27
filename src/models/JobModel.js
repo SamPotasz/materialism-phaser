@@ -90,6 +90,15 @@ export default class JobModel {
       JSON.stringify(this.saveData));
   }
 
+  canUpgrade( score ) {
+    return score >= this.upgradeCost && this.isUnlocked;
+  }
+
+  canPurchaseApp( score ) {
+    const app = this.student;
+    return !app.isActive && this.isUnlocked && score >= app.cost;
+  }
+
   get isAbleToStart() {
     return !this.isActive && this.isUnlocked;
   }
@@ -101,11 +110,18 @@ export default class JobModel {
     return this.startedAt + this.duration;
   }
 
+  /**
+   * The data which will get saved in localStorage.
+   * Anything that we want to know about this model from session to session
+   * we must store in this object.
+   */
   get saveData() {
     return {
       isActive: this.isActive,
       startedAt: this.startedAt,
       isUnlocked: this.isUnlocked,
+      upgradeCost: this.upgradeCost,
+      benefit: this.benefit,
       hasApp: this.hasApp,
     }
   }

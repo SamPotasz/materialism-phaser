@@ -27,6 +27,9 @@ export default class UpgradeButton {
 
   update( score ) {
     this.label.text = this.labelText;
+    this.button.setActive( 
+      this.model.canUpgrade( score )
+    );
     // Display.Align.In.Center(this.label, this.button);
   }
 }

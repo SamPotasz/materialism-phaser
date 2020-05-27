@@ -1,4 +1,4 @@
-import { Events } from 'phaser';
+import { Events, Display } from 'phaser';
 import AppButton from './AppButton';
 
 // const ON_NAME = 'green_panel';
@@ -11,6 +11,7 @@ export default class AppsView {
     
   constructor({scene, atlas, model}) {
     this.model = model;
+    this.numJobs = this.model.jobs.length;
     this.emitter = new Events.EventEmitter();
 
     const buttonX = scene.cameras.main.width / 3;
@@ -24,6 +25,9 @@ export default class AppsView {
     this.label = scene.add.text( buttonX, buttonY - 30,
       LABEL_TEXT, {color: '0xffffff'} );
     this.label.x -= Math.floor( this.label.width / 2 );
+
+    this.alert = scene.add.image(0, 0, atlas, NOTIF_ICON);
+    Display.Align.In.TopRight( this.alert, this.button );
 
     this.menu = scene.add.container(
       scene.cameras.main.width / 2,
@@ -63,6 +67,8 @@ export default class AppsView {
   }
 
   update() { 
+    this.alert.setVisible( this.model.areAnyAppsAvailable() );
+    
     this.buttons.forEach( button => button.update( this.model.score ));
   }
 }

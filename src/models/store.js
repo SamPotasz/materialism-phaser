@@ -49,7 +49,7 @@ export default class GameState {
     const jobModel = this.getJobById( jobId );
     if( jobModel ) {
       const cost = jobModel.upgradeCost
-      if( this.score >= cost ) {
+      if( jobModel.canUpgrade( cost ) ) {
         jobModel.upgrade();
         this.setScore( this.score - cost )
       }
@@ -59,12 +59,9 @@ export default class GameState {
   activateApp( jobId ) {
     const jobModel = this.getJobById( jobId );
     if( jobModel ) {
-      const app = jobModel.student;
-      // console.log('updating app')
-      // console.log({app});
-      if( !app.isActive && jobModel.isUnlocked && this.score >= app.cost ) {
+      if( jobModel.canPurchaseApp( this.score ) ) {
         jobModel.activateApp();
-        this.setScore( this.score - app.cost );
+        this.setScore( this.score - jobModel.student.cost );
       }
     }
   }
@@ -80,6 +77,19 @@ export default class GameState {
    */
   getJobById( id ) {
     return this.jobs.find( job => job.id === id );
+  }
+
+  /**
+   * Bool of whether or not any apps are currently available for purchase
+   */
+  areAnyAppsAvailable() {
+    let toReturn = false;
+    this.jobs.forEach( job => {
+      if( job.canPurchaseApp(this.score) ){
+        toReturn = true;
+      }
+    })
+    return toReturn;
   }
 }
 
