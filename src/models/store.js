@@ -45,13 +45,24 @@ export default class GameState {
     }
   }
 
+  upgradeJob( jobId ) {
+    const jobModel = this.getJobById( jobId );
+    if( jobModel ) {
+      const cost = jobModel.upgradeCost
+      if( this.score >= cost ) {
+        jobModel.upgrade();
+        this.setScore( this.score - cost )
+      }
+    }
+  }
+
   activateApp( jobId ) {
     const jobModel = this.getJobById( jobId );
     if( jobModel ) {
       const app = jobModel.student;
-      console.log('updating app')
-      console.log({app});
-      if( !app.isActive && this.score >= app.cost ) {
+      // console.log('updating app')
+      // console.log({app});
+      if( !app.isActive && jobModel.isUnlocked && this.score >= app.cost ) {
         jobModel.activateApp();
         this.setScore( this.score - app.cost );
       }

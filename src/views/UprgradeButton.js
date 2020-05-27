@@ -22,6 +22,11 @@ export default class UpgradeButton {
   }
 
   get labelText() {
-    return `Upgrade: ${this.model.upgradeCost} pts`
+    return `Upgrade: ${this.model.upgradeCost.toFixed(2)} pts`
+  }
+
+  update( score ) {
+    this.label.text = this.labelText;
+    // Display.Align.In.Center(this.label, this.button);
   }
 }

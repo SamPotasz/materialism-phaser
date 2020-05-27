@@ -8,7 +8,7 @@ class ScoreView {
   }
 
   update( score ) {
-    this.label.text = LABEL_TEXT + score;
+    this.label.text = LABEL_TEXT + score.toFixed(2);
   }
 }
 

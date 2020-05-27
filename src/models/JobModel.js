@@ -67,13 +67,21 @@ export default class JobModel {
   unlock( currPoints ) {
     if( currPoints >= this.unlockCost ){
       this.isUnlocked = true;
+
       this.saveToStorage();
     }
+  }
+
+  upgrade() {
+    this.upgradeCost *= 1.1;
+    this.benefit *= 1.1;
+    this.saveToStorage();
   }
 
   activateApp() {
     this.hasApp = true;
     this.student.activate();
+    this.tryToStart();
     this.saveToStorage();
   }
 

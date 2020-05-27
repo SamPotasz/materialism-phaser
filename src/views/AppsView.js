@@ -45,7 +45,7 @@ export default class AppsView {
         x: 0, 
         y: i * 30 - (menuBG.displayHeight / 4),
         atlas,
-        model: model.student,
+        model,
         emitter: this.emitter
        })
        this.menu.add( appButton );

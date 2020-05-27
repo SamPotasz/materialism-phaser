@@ -34,6 +34,8 @@ export default class UnlockedJobView  {
   update( score ) {
     this.startButton.setEnabled( !this.model.isActive );
     this.timeDisplay.update();
+    this.upgradeButton.update( score );
+    this.pointsText.text = this.pointsString;
   }
 
   setVisible( value ) {
@@ -44,6 +46,6 @@ export default class UnlockedJobView  {
   }
 
   get pointsString() {
-    return "Earns " + this.model.benefit;
+    return "Earns " + this.model.benefit.toFixed(2);
   }
 }

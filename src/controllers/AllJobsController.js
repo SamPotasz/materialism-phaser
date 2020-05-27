@@ -18,8 +18,9 @@ export default class AllJobsController {
       });
 
       //add listeners to click events
-      view.emitter.on(EVENT_TYPES.JOB_START, () => { this.onStartClicked(model.id) })
-      view.emitter.on(EVENT_TYPES.UNLOCK_CLICK, () => { this.onUnlockClicked(model.id) })
+      view.emitter.on(EVENT_TYPES.JOB_START, () => { this.onStartClicked( model.id ) })
+      view.emitter.on(EVENT_TYPES.UNLOCK_CLICK, () => { this.onUnlockClicked( model.id ) })
+      view.emitter.on(EVENT_TYPES.UPGRADE_CLICK, () => { this.onUpgradeClicked( model.id )});
 
       model.emitter.on(EVENT_TYPES.JOB_FINISHED, this.onJobFinished, this);
 
@@ -32,20 +33,24 @@ export default class AllJobsController {
     this.jobViews.forEach( view => view.update(this.model.score) )
   }
 
-  onStartClicked( modelId ) {
+  onStartClicked( jobId ) {
     // console.log('start clicked in AJC')
-    const jobModel = this.model.getJobById(modelId);
+    const jobModel = this.model.getJobById(jobId);
     if( jobModel ){
       jobModel.tryToStart();
     }
     else {
-      console.error("couldn't find model with id " + modelId + " to start")
+      console.error("couldn't find model with id " + jobId + " to start")
     }
   }
 
-  onUnlockClicked( modelId ) {
-    console.log( 'unlock detected in model ' + modelId )
-    this.model.unlockJob( modelId );
+  onUnlockClicked( jobId ) {
+    console.log( 'unlock detected in model ' + jobId )
+    this.model.unlockJob( jobId );
+  }
+
+  onUpgradeClicked( jobId ) {
+    this.model.upgradeJob( jobId );
   }
 
   onJobFinished( jobModel, timesFinished ) {

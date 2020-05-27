@@ -9,12 +9,13 @@ class AppButton extends Phaser.GameObjects.Container {
   constructor({scene, x, y, atlas, model, emitter}) {
     super(scene, x, y);
     
-    this.model = model;
+    this.parent = model;
+    this.model = model.student;
 
     this.bg = scene.add.image(x, y, atlas, BG_NAME);
     
-    this.nameText = scene.add.text(x, y, model.name, {color: '0xffffff'});
-    this.descText = scene.add.text(x, y + 15, model.description, {color: '0xffffff'});
+    this.nameText = scene.add.text(x, y, this.model.name, {color: '0xffffff'});
+    this.descText = scene.add.text(x, y + 15, this.model.description, {color: '0xffffff'});
     this.nameText.x -= Math.floor(this.nameText.width / 2);
     this.descText.x -= Math.floor(this.descText.width / 2);
 
@@ -26,7 +27,7 @@ class AppButton extends Phaser.GameObjects.Container {
     this.buyText = scene.add.text(
       this.buyButton.x,
       this.buyButton.y,
-      `$${model.cost}`
+      `$${this.model.cost}`
     )
 
     this.add(this.bg);
@@ -43,7 +44,7 @@ class AppButton extends Phaser.GameObjects.Container {
       this.buyText.text = "BOUGHT!";
     }
     else {
-      if( score >= this.model.cost ) {
+      if( score >= this.model.cost && this.parent.isUnlocked ) {
         this.buyButton.setInteractive({useHandCursor: true});
         this.buyButton.setFrame(BUY_BUTTON);
       }
