@@ -19,6 +19,8 @@ export default class UpgradeButton extends Phaser.GameObjects.Container {
     })
     this.button.setScale(1.0, 0.8);
 
+    emitter.on(EVENT_TYPES.UPGRADE_CLICK, () => this.scene.sound.play(CONFIG.OPEN_SFX));
+
     this.label = scene.add.text(x, y, this.labelText,
       {fontFamily: 'Muli', fontSize: '14px'});
     Display.Align.In.Center(this.label, this.button);

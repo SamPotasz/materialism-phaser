@@ -10,6 +10,7 @@ export const JOBS_DATA = {
     benefitMultiplier: 1,
     duration: 1000,
     ticksMultiplier: 1,
+    icon: '1F9D8_black',
     student: {
       id: 1,
       name: 'HappyAppy Meditations',
@@ -26,6 +27,7 @@ export const JOBS_DATA = {
     benefit: 60,
     duration: 3000,
     timeMultiplier: 1.0,
+    icon: '1F4DA_black',
     student: {
       id: 2,
       name: 'BrainBooks',
@@ -41,6 +43,7 @@ export const JOBS_DATA = {
     upgradeCost: 820.8,
     benefit: 540,
     duration: 6000,
+    icon: '1F3EB_black',
     student: {
       id: 3,
       name: 'PhD for dummies',
@@ -56,6 +59,7 @@ export const JOBS_DATA = {
     upgradeCost: 9763.2,
     benefit: 4200,
     duration: 12000,
+    icon: '1F4FB_black',
     student: {
       id: 4,
       name: 'FastCast',
@@ -71,6 +75,7 @@ export const JOBS_DATA = {
     upgradeCost: 116121.6,
     benefit: 5200,
     duration: 24000,
+    icon: '1F549_black',
     student: {
       id: 5,
       name: 'Instafocus',

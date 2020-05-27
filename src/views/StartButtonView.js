@@ -47,6 +47,7 @@ class StartButtonView {
   onStartClick() {
     // console.log('start clicked')
     // console.log(this.dispatch);
+    this.sprite.scene.sound.play(CONFIG.UNLOCK_SFX);
     this.dispatch.emit(EVENT_TYPES.JOB_START);
   }
 

@@ -58,6 +58,12 @@ export default class AppsMenu extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
+  setVisible(value) {
+    const sfxKey = value ? CONFIG.CLOSED_SFX : CONFIG.OPEN_SFX;
+    this.scene.sound.play(sfxKey);
+    super.setVisible( value );
+  }
+
   update() {
     this.buttons.forEach( button => button.update( this.model.score ));
   }

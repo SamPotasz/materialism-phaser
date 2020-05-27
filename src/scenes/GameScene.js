@@ -4,6 +4,7 @@ import GameState from '../models/store.js';
 import ScoreView from '../views/ScoreView';
 import AllJobsController from '../controllers/AllJobsController.js';
 import AppsController from '../controllers/AppsController.js';
+import { CONFIG } from '../constants.js';
 
 export default class GameScene extends Phaser.Scene 
 {
@@ -22,6 +23,9 @@ export default class GameScene extends Phaser.Scene
 	create() 
 	{
     console.log("create game")
+
+    this.openSfx = this.sound.add(CONFIG.OPEN_SFX);
+    this.closeSfx = this.sound.add(CONFIG.CLOSED_SFX);
 
     //don't need a controller really. this scene acts as the controller
     this.scoreDisplay = new ScoreView({

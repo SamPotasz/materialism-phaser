@@ -26,14 +26,15 @@ class AppButton extends Phaser.GameObjects.Container {
       this.nameText.x, this.nameText.y + 20,
       this.model.description, 
       {fontFamily: 'Muli', color: '0xffffff'});
-    // this.nameText.x -= Math.floor(this.nameText.width / 2);
-    // this.descText.x -= Math.floor(this.descText.width / 2);
 
     this.buyButton = scene.add.image(x + 132, y - 4, atlas, BUY_BUTTON)
       .setScale(2.0, 1.0)
       .setInteractive({useHandCursor: true})
       .on('pointerdown', 
-        () => emitter.emit(EVENT_TYPES.APP_PURCHASED, model.id));
+        () => {
+          emitter.emit(EVENT_TYPES.APP_PURCHASED, model.id);
+          this.scene.sound.play(CONFIG.APP_BUY_SFX);
+        });
 
     this.buyText = scene.add.text(
       this.buyButton.x,

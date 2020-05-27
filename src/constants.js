@@ -8,6 +8,10 @@ export const CONFIG = {
   },
   APP_MENU_DESC: `Why spend *your* precious time on all this enlightment hooha?\nBuy some apps and run your transformation in the background!`,
   APP_MENU_TITLE: "There's an app for that!",
+  OPEN_SFX: 'Pop1',
+  CLOSED_SFX: 'Pop2',
+  UNLOCK_SFX: 'Whoosh',
+  APP_BUY_SFX: 'Yay',
 }
 
 export const EVENT_TYPES = {

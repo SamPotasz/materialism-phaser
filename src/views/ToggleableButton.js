@@ -11,7 +11,9 @@ class ToggleableButton extends GameObjects.Image {
     this.isActive = true;
 
     this.setInteractive({useHandCursor: true});
-    this.on('pointerdown', () => emitter.emit(eventName));
+    this.on('pointerdown', () => {
+      emitter.emit(eventName);
+    });
 
     scene.add.existing(this);
   }

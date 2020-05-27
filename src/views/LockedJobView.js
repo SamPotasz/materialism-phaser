@@ -15,7 +15,7 @@ export default class LockedJobView {
     this.button = scene.add.image( x, y, 
       CONFIG.ATLAS_NAME, 'red_button01');
     this.button.on('pointerdown', () => {
-        console.log('emitting')
+        scene.sound.play(CONFIG.UNLOCK_SFX);
         this.emitter.emit(EVENT_TYPES.UNLOCK_CLICK);
       })
     this.button.setScale(1.3, 1.0);

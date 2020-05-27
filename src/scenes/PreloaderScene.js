@@ -89,58 +89,54 @@ export default class PreloaderScene extends Phaser.Scene
 		this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 		
 		
-		/******************************************************************
-		*
-		*      LOAD MUSIC FUNCTIONS
-		*
-		***************************************************************/
-		// this.load.audio('LabMusic', [
-		//     'assets/audio/MUS_ShopMusic_Lp.ogg',
-		//     'assets/audio/MUS_ShopMusic_Lp.mp3'
-		// ]);
+    /******************************************************************
+    *
+    *      LOAD MUSIC FUNCTIONS
+    *
+    ***************************************************************/
+    this.load.audio(CONFIG.OPEN_SFX, [
+        `assets/sfx/${CONFIG.OPEN_SFX}.ogg`,
+        `assets/sfx/${CONFIG.OPEN_SFX}.mp3`
+    ]);
+    this.load.audio(CONFIG.CLOSED_SFX, [
+      `assets/sfx/${CONFIG.CLOSED_SFX}.ogg`,
+      `assets/sfx/${CONFIG.CLOSED_SFX}.mp3`
+    ]);
+    this.load.audio(CONFIG.UNLOCK_SFX, [
+      `assets/sfx/${CONFIG.UNLOCK_SFX}.ogg`,
+      `assets/sfx/${CONFIG.UNLOCK_SFX}.mp3`
+    ]);
+    this.load.audio(CONFIG.APP_BUY_SFX, [
+      `assets/sfx/${CONFIG.APP_BUY_SFX}.ogg`,
+      `assets/sfx/${CONFIG.APP_BUY_SFX}.mp3`
+    ]);
+  }
 		
-		// this.load.audio('GameMusic', [
-		//     'assets/audio/Chemix_GameMusic_Lp_3_UpdatedMix.ogg',
-		//     'assets/audio/Chemix_GameMusic_Lp_3_UpdatedMix.mp3'
-		// ]);
+  init()
+  {
+    this.readyCount = 0;
+  }
 		
-		// Sound effects in a audioSprite.
-		// this.load.audioSprite('sfx', 
-		// 'assets/sfx/output.json', [
-		// 	'assets/sfx/output.ogg',
-		// 	'assets/sfx/output.mp3'
-		// ]);
+  ready()
+  {
+    this.readyCount++;
+    console.log("readyCount = " + this.readyCount);
+    if( this.readyCount === 1 )
+    {
+      var toStart = this.scene;
+      WebFont.load({
+        google: {
+          families: [ 'Boogaloo', 'Muli' ]
+        },
+        active: function()
+        {
+          toStart.start('Game');
+        }
+      })
+    }
+  }
 		
-		// this.load.audio(config.SFX.CATCH.key, 
-		// 	['assets/sfx/' + config.SFX.CATCH.mp3, 'assets/sfx/' + config.SFX.CATCH.ogg]);
-			
-		}
-		
-		init()
-		{
-			this.readyCount = 0;
-		}
-		
-		ready()
-		{
-			this.readyCount++;
-			console.log("readyCount = " + this.readyCount);
-			if( this.readyCount === 1 )
-			{
-				var toStart = this.scene;
-				WebFont.load({
-					google: {
-						families: [ 'Boogaloo', 'Muli' ]
-					},
-					active: function()
-					{
-						toStart.start('Game');
-					}
-				})
-			}
-		}
-		
-		create () 
-		{
-		}
-	};
+  create () 
+  {
+  }
+};
