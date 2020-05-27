@@ -1,9 +1,39 @@
-# Phaser 3 Webpack Project Template
+# Clicker Clone Project Notes
 
-A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/)
-that includes hot-reloading for development and production-ready builds.
+## Problem Description
+The goal of this project was to create a browser-based clone of the idle game [Adventure Capitalist](http://en.gameslol.net/adventure-capitalist-1086.html). My implementation is local only - it doesn't save anything to a server, but it does persist your state between sessions, while you look at other tabs, and while you sleep.
 
-Loading images via JavaScript module `import` is also supported.
+Behind the scenes, the game is running on Phaser (a javascript library written for making games) and architectured with an MVC pattern. State is stored using the browser's `localStorage` store.
+
+In general, this particular implementation, while not flashy, is well-structured, and set up to be built upon further. It is a very solid base for implementing a fully featured version of a clicker complete with flashy UI and back-end storage. I focused on creating a structure that would make it easy to create changes and implement new features moving forward. While kind of an odd paradox in a gamejam-like project to be completed over two days, I'm happy with the result. It is MVP feature-complete and ready for more.
+
+## Technical Choices
+### React vs Phaser
+The first big technical choice to make was whether to go with a game engine like Phaser or a native web framework like React. On first glance, I was thinking React - the game itself is totally data driven, and there's not much animation at all. It's easy to visualize the UI as just reacting to state changes - exactly what React & Redux are great at!
+Plus, working in DOM elements (vs the canvas for Phaser) would make our game responsive and very mobile-friendly which is really nice.
+
+However, on second glance, once the game gets going at high speeds, the state is changing every frame (as in, every 1/60th of a second). I know that Phaser is excellent at running at this speed, but I haven't ever made a *game* in React, so that would be a big risk for this project. I did not want to implement the entire game and then have it slow to a crawl at the end simply because we were trying to make the framework do something it's not meant to do.
+
+So I decided to go with Phaser. It's a slightly different paradigm in terms of how state gets stored. In my game, there's an update loop. I'm updating the state with events on user input and then checking the state on every update.
+
+Again, this is driven because of the assumption that we will be updating the state (and score) every update after playing the game for a few minutes. Thus, it's easier to keep our logic as contained as possible to the update loop rather than having bi-directional spaghetti code. 
+
+### MVC
+The next architecture decision was to separate the code into some semblance of MVC concerns. I wanted the project to be structured in a way so that if multiple people were working on it, they'd be able to jump in easily. For me, the best way to do this is for each piece of code to do one thing.
+
+Views in this solution are as strictly presentational as possible. They dispatch events when they're clicked. They play sound effects. They can query models for values, but they don't modify models and they don't perform complex calculations.
+
+Controllers handle clicks and user input from the views and then tell the models to do things. They're also in charge of creating views.
+
+Models store the data. This game is largely data-driven, so I wanted to make sure that there was a robust data system in place. I'm pretty happy with the result, but of course, there's always room for improvement.
+
+## Room for Improvement
+ - UI & Layout
+ For starters, the look of this game is pretty barebones. It would benefit greatly from an animator coming on and taking a pass at it. (For a look at some of my more animation-heavy work, please check out (Chemex: The Game[www.chemexthegame.com]).) However, because the views are separated nicely, it's easy to get in there and make things prettier.
+ - Component library
+ I'd definitely add a better component library for the views. As is, they're not very DRY. In addition, there are some places where I've stored sprite file names in the view files themselves, and some places where I've put it in a config file. This should be standardized.
+ - More robust testing and saving
+ TDD was not followed for this game, and that is a definite area for improvement. Another benefit of separating out concerns though is that the models are prime for unit tests and the logic for manipulating the guts of the game is contained therein.
 
 ## Requirements
 
@@ -17,39 +47,4 @@ Loading images via JavaScript module `import` is also supported.
 | `npm start` | Build project and open web server running project |
 | `npm run build` | Builds code bundle with production settings (minification, uglification, etc..) |
 
-## Writing Code
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development
-server by running `npm start`.
-
-
-After starting the development server with `npm start`, you can edit any files in the `src` folder
-and webpack will automatically recompile and reload your server (available at `http://localhost:8080`
-by default).
-
-## Customizing Template
-
-### Babel
-You can write modern ES6+ JavaScript and Babel will transpile it to a version of JavaScript that you
-want your project to support. The targeted browsers are set in the `.babelrc` file and the default currently
-targets all browsers with total usage over "0.25%" but excludes IE11 and Opera Mini.
-
-  ```
-  "browsers": [
-    ">0.25%",
-    "not ie 11",
-    "not op_mini all"
-  ]
-  ```
-
-### Webpack
-If you want to customize your build, such as adding a new webpack loader or plugin (i.e. for loading CSS or fonts), you can
-modify the `webpack/base.js` file for cross-project changes, or you can modify and/or create
-new configuration files and target them in specific npm tasks inside of `package.json'.
-
-## Deploying Code
-After you run the `npm run build` command, your code will be built into a single bundle located at 
-`dist/bundle.min.js` along with any other assets you project depended. 
-
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`), 
-you should be able to open `http://mycoolserver.com/index.html` and play your game.
