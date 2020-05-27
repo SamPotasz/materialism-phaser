@@ -23,7 +23,6 @@ class StartButtonView {
     if( value ) {
       this.sprite.setFrame(ON_NAME)
       this.sprite.setInteractive({useHandCursor: true});
-
     }
     else {
       this.sprite.setFrame(OFF_NAME);

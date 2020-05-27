@@ -7,9 +7,11 @@ export default class JobModel {
   constructor(jobData) {
     Object.assign( this, jobData );
     this.lastUpdate = Date.now();
-    this.isActive = false;
     
-    this.student = new StudentModel(jobData.student);
+    this.student = new StudentModel({
+      ...jobData.student,
+      isActive: this.hasApp
+    });
 
     this.emitter = new Events.EventEmitter();
   }
@@ -46,11 +48,6 @@ export default class JobModel {
     }
   }
 
-  saveToStorage() {
-    localStorage.setItem(CONFIG.JOBS_KEY + this.id, 
-      JSON.stringify(this.saveData));
-  }
-
   /**
    * Try to unlock this job
    * @param {points in the game} currPoints 
@@ -60,6 +57,17 @@ export default class JobModel {
       this.isUnlocked = true;
       this.saveToStorage();
     }
+  }
+
+  activateApp() {
+    this.hasApp = true;
+    this.student.activate();
+    this.saveToStorage();
+  }
+
+  saveToStorage() {
+    localStorage.setItem(CONFIG.JOBS_KEY + this.id, 
+      JSON.stringify(this.saveData));
   }
 
   get isAbleToStart() {
@@ -78,6 +86,7 @@ export default class JobModel {
       isActive: this.isActive,
       startedAt: this.startedAt,
       isUnlocked: this.isUnlocked,
+      hasApp: this.hasApp,
     }
   }
 }

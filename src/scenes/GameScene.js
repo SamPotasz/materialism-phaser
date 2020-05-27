@@ -3,6 +3,7 @@ import GameState from '../models/store.js';
 
 import ScoreView from '../views/ScoreView';
 import AllJobsController from '../controllers/AllJobsController.js';
+import AppsController from '../controllers/AppsController.js';
 
 export default class GameScene extends Phaser.Scene 
 {
@@ -35,6 +36,11 @@ export default class GameScene extends Phaser.Scene
       model: this.gameState
     })
 
+    this.apps = new AppsController({
+      scene: this,
+      model: this.gameState,
+    })
+
     //add timer
     // this.time.addEvent({
     //   delay: 1000,
@@ -49,6 +55,7 @@ export default class GameScene extends Phaser.Scene
   update() {
     this.gameState.onTimePassed();
     this.jobsController.update();
+    this.apps.update();
     this.scoreDisplay.update( this.gameState.score )
   }
   

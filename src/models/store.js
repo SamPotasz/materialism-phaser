@@ -37,6 +37,27 @@ export default class GameState {
     this.jobs.map( jobModel => jobModel.onTimePassed(this.lastUpdate) )
   }
 
+  unlockJob( jobId ) {
+    const jobModel = this.getJobById( jobId );
+    if( jobModel ) {
+      jobModel.unlock( this.score );
+      this.setScore( this.score - jobModel.unlockCost )
+    }
+  }
+
+  activateApp( jobId ) {
+    const jobModel = this.getJobById( jobId );
+    if( jobModel ) {
+      const app = jobModel.student;
+      console.log('updating app')
+      console.log({app});
+      if( !app.isActive && this.score >= app.cost ) {
+        jobModel.activateApp();
+        this.setScore( this.score - app.cost );
+      }
+    }
+  }
+
   setScore( value ) {
     this.score = value;
     localStorage.setItem(CONFIG.SCORE_KEY, this.score);

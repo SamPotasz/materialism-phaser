@@ -11,4 +11,5 @@ export const EVENT_TYPES = {
   JOB_FINISHED: 'a job has completed running',
   SCORE_MODIFIED: 'score modified event',
   UNLOCK_CLICK: 'clicked button to unlock job',
+  APP_PURCHASED: 'app purchase clicked',
 }

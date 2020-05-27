@@ -6,14 +6,10 @@ export default class AllJobsController {
   constructor({scene, x, y, model}) {
 
     this.model = model;
-    console.log(this.model)
     this.jobViews = [];
-    
-    // model.events.on()
 
     this.model.jobs.forEach( (model, i)  => {
-      // console.log(`iterating over ${i}`)
-      // console.log({model})
+      
       const view = new JobView({ 
         scene,
         x,
@@ -26,7 +22,6 @@ export default class AllJobsController {
       view.emitter.on(EVENT_TYPES.UNLOCK_CLICK, () => { this.onUnlockClicked(model.id) })
 
       model.emitter.on(EVENT_TYPES.JOB_FINISHED, this.onJobFinished, this);
-      // model.emitter.on(EVENT_TYPES.TIME_PASSED, this.onJobTimePassed, this);
 
       view.update( this.model.score );
       this.jobViews.push( view )
@@ -38,7 +33,7 @@ export default class AllJobsController {
   }
 
   onStartClicked( modelId ) {
-    console.log('start clicked in AJC')
+    // console.log('start clicked in AJC')
     const jobModel = this.model.getJobById(modelId);
     if( jobModel ){
       jobModel.tryToStart();
@@ -50,18 +45,12 @@ export default class AllJobsController {
 
   onUnlockClicked( modelId ) {
     console.log( 'unlock detected in model ' + modelId )
-    const jobModel = this.model.getJobById(modelId);
-    if( jobModel ) {
-      jobModel.unlock( this.model.score );
-      this.model.setScore( this.model.score - jobModel.unlockCost )
-      // this.model.score -= jobModel.unlockCost;
-    }
+    this.model.unlockJob( modelId );
   }
 
   onJobFinished( jobModel, timesFinished ) {
     console.log( `${jobModel.title} finished ${timesFinished} times`)
     const points = jobModel.benefit * timesFinished;
-    // this.model.score += points;
     this.model.setScore( this.model.score + points );
   }
 }

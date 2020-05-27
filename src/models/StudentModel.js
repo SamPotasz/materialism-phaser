@@ -1,5 +1,9 @@
 export default class StudentModel {
   constructor( studentData ) {
-    this.data = studentData;
+    Object.assign( this, studentData );
+  }
+
+  activate() {
+    this.isActive = true;
   }
 }
