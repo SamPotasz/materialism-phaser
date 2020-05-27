@@ -6,6 +6,8 @@ export const CONFIG = {
     UPGRADE_ON: 'green_button03',
     UPGRADE_OFF: 'grey_button03',
   },
+  APP_MENU_DESC: `Why spend *your* precious time on all this enlightment hooha?\nBuy some apps and run your transformation in the background!`,
+  APP_MENU_TITLE: "There's an app for that!",
 }
 
 export const EVENT_TYPES = {

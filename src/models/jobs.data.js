@@ -12,8 +12,8 @@ export const JOBS_DATA = {
     ticksMultiplier: 1,
     student: {
       id: 1,
-      name: 'first student',
-      description: 'It\'s basically like doing it yourself.',
+      name: 'HappyAppy Meditations',
+      description: 'Play throughout your day :-\)',
       cost: 1000,
       isActive: false,
     }
@@ -28,8 +28,8 @@ export const JOBS_DATA = {
     timeMultiplier: 1.0,
     student: {
       id: 2,
-      name: 'second student',
-      description: "They'll sumarize it for you, I'm sure.",
+      name: 'BrainBooks',
+      description: "Play it while you sleep!",
       cost: 15000,
       isActive: false,
     }
@@ -43,8 +43,8 @@ export const JOBS_DATA = {
     duration: 6000,
     student: {
       id: 3,
-      name: 'second student',
-      description: 'Can totally pass you notes afterwards.',
+      name: 'PhD for dummies',
+      description: 'Synthesize right to your neurons.',
       cost: 100000,
       isActive: false,
     }
@@ -58,7 +58,7 @@ export const JOBS_DATA = {
     duration: 12000,
     student: {
       id: 4,
-      name: 'fourth student',
+      name: 'FastCast',
       description: 'Listens on 2.5x - so hardcore.',
       cost: 500000,
       isActive: false,
@@ -73,8 +73,8 @@ export const JOBS_DATA = {
     duration: 24000,
     student: {
       id: 5,
-      name: 'fifth student',
-      description: 'Will hit themselves with a stick.',
+      name: 'Instafocus',
+      description: 'Mindfulness-aware shock-collar',
       cost: 1200000,
       isActive: false,
     }

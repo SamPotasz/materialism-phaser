@@ -12,23 +12,36 @@ class AppButton extends Phaser.GameObjects.Container {
     this.parent = model;
     this.model = model.student;
 
-    this.bg = scene.add.image(x, y, atlas, BG_NAME);
-    
-    this.nameText = scene.add.text(x, y, this.model.name, {color: '0xffffff'});
-    this.descText = scene.add.text(x, y + 15, this.model.description, {color: '0xffffff'});
-    this.nameText.x -= Math.floor(this.nameText.width / 2);
-    this.descText.x -= Math.floor(this.descText.width / 2);
+    this.bg = scene.add.image(x, y, atlas, BG_NAME)
+      .setScale(2.0, 1.35);
 
-    this.buyButton = scene.add.image(x + 30, y, atlas, BUY_BUTTON);
-    this.buyButton.setInteractive({useHandCursor: true});
-    this.buyButton.on('pointerdown', 
-      () => emitter.emit(EVENT_TYPES.APP_PURCHASED, model.id))
+    const bgTop = this.bg.y - this.bg.displayHeight / 2;
+    const bgLeft = this.bg.x - this.bg.displayWidth / 2;
+    
+    this.nameText = scene.add.text( bgLeft + 15, bgTop + 10,
+      this.model.name, 
+      {fontFamily: 'Muli', color: '0xffffff'});
+    
+    this.descText = scene.add.text(
+      this.nameText.x, this.nameText.y + 20,
+      this.model.description, 
+      {fontFamily: 'Muli', color: '0xffffff'});
+    // this.nameText.x -= Math.floor(this.nameText.width / 2);
+    // this.descText.x -= Math.floor(this.descText.width / 2);
+
+    this.buyButton = scene.add.image(x + 132, y - 4, atlas, BUY_BUTTON)
+      .setScale(2.0, 1.0)
+      .setInteractive({useHandCursor: true})
+      .on('pointerdown', 
+        () => emitter.emit(EVENT_TYPES.APP_PURCHASED, model.id));
 
     this.buyText = scene.add.text(
       this.buyButton.x,
       this.buyButton.y,
-      `$${this.model.cost}`
+      `${this.model.cost} pts`,
+      {fontFamily: 'Muli', color: '0xffffff'}
     )
+    Phaser.Display.Align.In.Center(this.buyText, this.buyButton);
 
     this.add(this.bg);
     this.add(this.nameText);
@@ -42,6 +55,8 @@ class AppButton extends Phaser.GameObjects.Container {
     if( this.model.isActive ){
       this.buyButton.setFrame(BUY_BUTTON_OFF);
       this.buyText.text = "BOUGHT!";
+      Phaser.Display.Align.In.Center(this.buyText, this.buyButton);
+      this.buyButton.disableInteractive();
     }
     else {
       if( score >= this.model.cost && this.parent.isUnlocked ) {
