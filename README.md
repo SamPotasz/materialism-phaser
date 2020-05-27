@@ -29,7 +29,7 @@ Models store the data. This game is largely data-driven, so I wanted to make sur
 
 ## Room for Improvement
  - UI & Layout
- For starters, the look of this game is pretty barebones. It would benefit greatly from an animator coming on and taking a pass at it. (For a look at some of my more animation-heavy work, please check out (Chemex: The Game[www.chemexthegame.com]).) However, because the views are separated nicely, it's easy to get in there and make things prettier.
+ For starters, the look of this game is pretty barebones. It would benefit greatly from an animator coming on and taking a pass at it. (For a look at some of my more animation-heavy work, please check out (Chemex: The Game)[www.chemexthegame.com]). However, because the views are separated nicely, it's easy to get in there and make things prettier.
  - Component library
  I'd definitely add a better component library for the views. As is, they're not very DRY. In addition, there are some places where I've stored sprite file names in the view files themselves, and some places where I've put it in a config file. This should be standardized.
  - More robust testing and saving

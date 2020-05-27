@@ -12,7 +12,7 @@ import JobModel from './JobModel';
  */
 
 const INITIAL_STATE = {
-  score: 100,
+  score: 0,
   jobs: JOBS_DATA,
 }
 
