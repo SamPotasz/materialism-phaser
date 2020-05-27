@@ -4,7 +4,8 @@ const LABEL_TEXT = "SCORE: ";
 
 class ScoreView {
   constructor({ scene, x, y, score }) {
-    this.label = scene.add.text( x, y, LABEL_TEXT + score);
+    this.label = scene.add.text( x, y, LABEL_TEXT + score, 
+      {font: 'Muli'});
   }
 
   update( score ) {

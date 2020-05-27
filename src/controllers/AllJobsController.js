@@ -9,11 +9,10 @@ export default class AllJobsController {
     this.jobViews = [];
 
     this.model.jobs.forEach( (model, i)  => {
-      
       const view = new JobView({ 
         scene,
         x,
-        y: y + i * 60,
+        y: y + i * 100,
         model
       });
 

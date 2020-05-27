@@ -1,5 +1,5 @@
 import { Events } from 'phaser';
-import {CONFIG, EVENT_TYPES} from '../constants';
+import {CONFIG, EVENT_TYPES, START_BUTTON_STATES} from '../constants';
 
 import StudentModel from './StudentModel';
 
@@ -108,6 +108,16 @@ export default class JobModel {
    */
   get finishesAt() {
     return this.startedAt + this.duration;
+  }
+
+  get startButtonState() {
+    if( this.hasApp ) {
+      return START_BUTTON_STATES.APP_RUNNING;
+    }
+    if( this.isActive ) {
+      return START_BUTTON_STATES.ACTIVE;
+    }
+    return START_BUTTON_STATES.INACTIVE;
   }
 
   /**

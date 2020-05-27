@@ -6,7 +6,8 @@ export default class TimeLeftView {
     this.model = model;
 
     this.text = scene.add.text( 
-      x, y, msToTimeString( this.model.duration ));
+      x, y, msToTimeString( this.model.duration ),
+      {fontFamily: 'Muli'});
   }
 
   setVisible( value ) {

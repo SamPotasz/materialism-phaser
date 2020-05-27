@@ -9,30 +9,36 @@ export default class UnlockedJobView  {
     const { title } = model;
     this.model = model;
 
-    this.startButton = new StartButtonView({ 
-      scene, x, y, dispatch});
-
-    const titleX = x + ( this.startButton.width / 2 ) + 5;
     this.titleText = scene.add.text( 
-      titleX, y - 10, title);
+      x, y, title, {fontFamily: 'Muli'});
 
+    this.startButton = new StartButtonView({ 
+      scene, 
+      x, 
+      y: y + 36, dispatch});
+    
     this.pointsText = scene.add.text(
-      titleX, y + 15, this.pointsString );
+      x + 30, y + 22, this.pointsString, {fontFamily: 'Muli'} );
 
     this.upgradeButton = new UpgradeButton({
-      scene, x, 
-      y: y + 15, 
+      scene, 
+      x: x + 70, 
+      y: y + 70, 
       model,
       emitter: dispatch
     });
+    // this.upgradeButton.x = -this.upgradeButton.displayWidth / 2;
 
     this.timeDisplay = new TimeLeftView({
-      scene, x: titleX + this.titleText.width + 5, y, model 
+      scene, 
+      x: x - 50, 
+      y: y + 30, 
+      model 
     });
   }
 
   update( score ) {
-    this.startButton.setEnabled( !this.model.isActive );
+    this.startButton.setState( this.model.startButtonState );
     this.timeDisplay.update();
     this.upgradeButton.update( score );
     this.pointsText.text = this.pointsString;

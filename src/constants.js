@@ -18,3 +18,9 @@ export const EVENT_TYPES = {
   APP_PURCHASED: 'app purchase clicked',
   UPGRADE_CLICK: 'clicked button to purchase upgrade',
 }
+
+export const START_BUTTON_STATES = {
+  ACTIVE: 'available to start',
+  INACTIVE: 'running. not available',
+  APP_RUNNING: 'app running. inactive',
+}
