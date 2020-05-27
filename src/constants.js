@@ -2,6 +2,10 @@ export const CONFIG = {
   ATLAS_NAME: 'spriteAtlas',
   SCORE_KEY: 'local store score key',
   JOBS_KEY: 'localStorage jobs',
+  SPRITES: {
+    UPGRADE_ON: 'green_button03',
+    UPGRADE_OFF: 'grey_button03',
+  },
 }
 
 export const EVENT_TYPES = {
@@ -12,4 +16,5 @@ export const EVENT_TYPES = {
   SCORE_MODIFIED: 'score modified event',
   UNLOCK_CLICK: 'clicked button to unlock job',
   APP_PURCHASED: 'app purchase clicked',
+  UPGRADE_CLICK: 'clicked button to purchase upgrade',
 }

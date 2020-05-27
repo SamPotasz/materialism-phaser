@@ -49,7 +49,7 @@ export default class AllJobsController {
   }
 
   onJobFinished( jobModel, timesFinished ) {
-    console.log( `${jobModel.title} finished ${timesFinished} times`)
+    // console.log( `${jobModel.title} finished ${timesFinished} times`)
     const points = jobModel.benefit * timesFinished;
     this.model.setScore( this.model.score + points );
   }

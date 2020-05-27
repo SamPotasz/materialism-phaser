@@ -12,8 +12,6 @@ class AppButton extends Phaser.GameObjects.Container {
     this.model = model;
 
     this.bg = scene.add.image(x, y, atlas, BG_NAME);
-
-
     
     this.nameText = scene.add.text(x, y, model.name, {color: '0xffffff'});
     this.descText = scene.add.text(x, y + 15, model.description, {color: '0xffffff'});

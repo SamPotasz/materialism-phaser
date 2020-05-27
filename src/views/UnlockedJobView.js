@@ -1,23 +1,30 @@
 import 'phaser';
 import StartButtonView from './StartButtonView';
 import TimeLeftView from './TimeLeftView';
+import UpgradeButton from './UprgradeButton';
 
 export default class UnlockedJobView  {
   constructor({ scene, x, y, model, dispatch }) {
 
-    const { title, duration} = model;
+    const { title } = model;
     this.model = model;
 
     this.startButton = new StartButtonView({ 
       scene, x, y, dispatch});
-    // if(Math.random() > 0.5) { this.startButton.enable() } else { this.startButton.disable() }
 
     const titleX = x + ( this.startButton.width / 2 ) + 5;
     this.titleText = scene.add.text( 
       titleX, y - 10, title);
 
     this.pointsText = scene.add.text(
-      titleX, y + 15, this.pointsString )
+      titleX, y + 15, this.pointsString );
+
+    this.upgradeButton = new UpgradeButton({
+      scene, x, 
+      y: y + 15, 
+      model,
+      emitter: dispatch
+    });
 
     this.timeDisplay = new TimeLeftView({
       scene, x: titleX + this.titleText.width + 5, y, model 

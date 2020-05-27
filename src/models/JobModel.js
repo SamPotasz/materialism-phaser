@@ -18,14 +18,26 @@ export default class JobModel {
 
   onTimePassed( newTime ) {
     if( this.isActive ) {
-      this.lastUpdate = newTime;
-
       if( newTime >= this.finishesAt ) {
-        this.isActive = false;
-        this.saveToStorage();
-        this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, 1 );
+        if(!this.hasApp) {
+          this.isActive = false;
+          this.saveToStorage();
+
+          this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, 1 );
+        }
+        else {
+          //calculate how many times we've finished since last start
+          const timePassed = newTime - this.startedAt;
+          const numTimesFinished = Math.floor( timePassed / this.duration );
+          
+          this.startedAt = this.startedAt + numTimesFinished * this.duration;
+          this.saveToStorage();
+
+          this.emitter.emit( EVENT_TYPES.JOB_FINISHED, this, numTimesFinished );
+        }
       }
-      this.emitter.emit( EVENT_TYPES.TIME_PASSED, this );
+      
+      this.lastUpdate = newTime;
     }
   }
 
