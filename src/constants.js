@@ -11,7 +11,7 @@ export const CONFIG = {
   OPEN_SFX: 'Pop1',
   CLOSED_SFX: 'Pop2',
   UNLOCK_SFX: 'Whoosh',
-  APP_BUY_SFX: 'Yay',
+  APP_BUY_SFX: 'yay',
 }
 
 export const EVENT_TYPES = {
