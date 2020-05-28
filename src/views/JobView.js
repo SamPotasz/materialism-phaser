@@ -12,9 +12,7 @@ export default class JobView {
     
     this.emitter = new Events.EventEmitter();
     this.model = model;
-    // this.unlockClicked = new Events.EventEmitter();
-    // this.unlockClicked.on('', () => console.log('clicked'));
-
+    
     this.lockedView = new LockedJobView({
       scene, 
       x, 

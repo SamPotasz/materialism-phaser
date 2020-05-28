@@ -16,14 +16,10 @@ export default class GameScene extends Phaser.Scene
 	init()
 	{
     this.gameState = new GameState();
-    console.log("JOBS:");
-    console.log(this.gameState.jobs);
 	}
 
 	create() 
 	{
-    console.log("create game")
-
     this.openSfx = this.sound.add(CONFIG.OPEN_SFX);
     this.closeSfx = this.sound.add(CONFIG.CLOSED_SFX);
 
@@ -45,9 +41,7 @@ export default class GameScene extends Phaser.Scene
       model: this.gameState,
     })
     
-    console.log(Phaser.Events.BLUR);
-
-    this.game.events.on('focus', this.onFocus, this);
+    // this.game.events.on('focus', this.onFocus, this);
     this.game.events.on('blur', this.onBlur, this);
 
     window.addEventListener('resize', () => this.resize() );
@@ -62,17 +56,10 @@ export default class GameScene extends Phaser.Scene
   }
 
   onBlur() {
-    console.log('BLUR EVENT!');
     this.gameState.saveState();
   }
-
-  onFocus() {
-    console.log('FOCUS EVENT!');
-  }
   
-  resize() {
-    console.log("Resizing app in " + this.key)
-    
+  resize() {    
     // Width-height-ratio of game resolution
     // Replace 360 with your game width, and replace 640 with your game height
     let game_ratio = 800 / 600;

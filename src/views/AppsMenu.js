@@ -6,7 +6,6 @@ const MENU_BG = 'grey_panel_big';
 
 export default class AppsMenu extends Phaser.GameObjects.Container {
   constructor( scene, x, y, model, emitter ) {
-    console.log({scene, x, y})
     super( scene, x, y );
     this.model = model;
     this.emitter = emitter;
